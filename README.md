@@ -76,7 +76,6 @@ then – check if the repository was invoked with the same object that was passe
 - compare (assert that) the captured object (value) with the real object from the Model Class
 	Remember that the under test service receives a modeled object is the When Section
 
-
 **Test a throw method:**
 1) Compare when and then by wrapping up a method with assert that thrown by
 + We can control what happened and even force the test to make a thrown by given method from the Mockito Library. Hence, if we want to have true then we can force that ex. the email does not exist 

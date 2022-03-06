@@ -1,7 +1,7 @@
 # studentservice
 The Spring Boot application with performed testing by using AssertJ library and mocks.
 
-    1. Basic info
+Basic info:
 - Unit Testing is a testing in isolation. In Integration Testing we combine all unit tests and we do not use a mock of repository. In intergration testing we send real get, post, deleted requests to whole app
 - JUNIT5 is a Java Testing Frameworks
 - Annotation examples - @Tests, @ParamizedTest, @RepetedTest, @BeforeAll
@@ -10,13 +10,14 @@ The Spring Boot application with performed testing by using AssertJ library and 
 - Exceptions in AssertJ are written like assertThatThrownBy(() → {throw new Exception(“boom”);})
 
 
-    1. Maven
+Maven:
 <dependency>
 	<groupId>org.springframework.boot</groupId>
 	<artifactId>spring-boot-starter-test</artifactId>
 	<scope>test</scope>
 </dependency>
-    1. Create a simple unit test
+
+Create a simple unit test:
 - Write test in a package called test
 - tests are divided to 3 main parts – given (introduce variables), when (action), then (assert result)
 - Use Jupiter5 (org.junit.jupiter.api) to use test (@Test) 
@@ -24,7 +25,7 @@ and use AssertJ (org.assertj.core.api.Assertions) to user assertThat method
 - crtl+alt+v to extract the variable (from a method or constant value)
 
 
-    1. H2 database
+H2 database:
 H2 database is the in-memory database. Instead of testing tests by using real database instance, we can run in H2 database, but first the configuration is needed.
 1) Add dependencies in a pom file
 <dependency>
@@ -37,9 +38,9 @@ H2 database is the in-memory database. Instead of testing tests by using real da
 4) Adjust new application.properties and add connection to the H2 database
 
 
-    1. Spring Repository Unit Test
+Spring Repository Unit Test:
 - Repository is an interface that extends JpaRepository that gives methods as save, delete, findAll etc. Moreover there can be initialized my own method that will influence on the database.
-- Test only own prepared method from a repository, because those methods that are not created by myself, but provided by JPA (as save, delete etc) are already checked. (Am I Write??)
+- Test only own prepared method from a repository, because those methods that are not created by myself, but provided by JPA (as save, delete etc) are already checked.
 1) Go to the repository interface and press shift+command+t to create a new, plain test.
 The test is prepared automatically in the test directory with the same package and name (with extra word test) as the tested interface
 2) Provide an instance of the repository and auto wired it (@Autowired) to have a real instance 
@@ -48,8 +49,7 @@ The test is prepared automatically in the test directory with the same package a
 5) TearDown method is used to delete tests at the end (press alt+enter). In a method add for example underTest.deleteAll(). Then we have a clean state (ex. we can test with a save method to database).
 
 
-
-    1. Spring Service Unit Test with Mockito
+Spring Service Unit Test with Mockito:
 - In a Service layer is described business logic, so the methods that are initialized in the repository or that which are given by JPA extension, are developed.
 - In Service Class we have a reference to Repository, so in a Service use a mock (~sztuczny model) of this Repository to test Service by using Mockito Library.
 - Mocks allow to replace a real object (as repository) with an object that can be controlled in tests. The benefit from using @Mock in a unit test is speed because we do not have to bring database, create a table, insert a new modeled object as Student, so all what was already tested in a Repository Unit Test (avoid repeating unit tests).
@@ -64,7 +64,7 @@ then – when the method is called – verify(repositoryReference).methodFromRep
 Verify is imported as a static method from mockito.org
  
 
-    1. Test an Add Method from a Service Class (with Argument Capture)
+Test an Add Method from a Service Class (with Argument Capture):
 In the above test you were checking if you can find/get results (so verify with Mokito library). 
 Now check adding an object to the mocked repo and then compare results (assert that with AssertJ).
 1) Change name of tested method to sound like a question
@@ -81,7 +81,7 @@ then – check if the repository was invoked with the same object that was passe
 
 
 
-    1. Test a throw method
+Test a throw method:
 1) Compare when and then by wrapping up a method with assert that thrown by
 + We can control what happened and even force the test to make a thrown by given method from the Mockito Library. Hence, if we want to have true then we can force that ex. the email does not exist 
 and then I can check if in this situation the test will pass
